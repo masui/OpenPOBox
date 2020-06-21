@@ -1,14 +1,36 @@
+oku	置く	に
+oku	置く
+ni	に	の
+ni	に
+no	の	は
+no	の
+ha	は	つもり
+ha	は
+tsumori	つもり	置く
+tsumori	つもり
+ni	に	ものを
+monowo	ものを	な
+monowo	ものを
+na	な	必要
+na	な
+hitsuyou	必要	いろいろ
+hitsuyou	必要
+iroiro	いろいろ	その他
+iroiro	いろいろ
+sonota	その他	とか
+sonota	その他
+toka	とか	増井
+toka	とか
+masui	増井
 sakusei	作成	で
 sakusei	作成
 de	で	は
 de	で
 ha	は	サムネ
-ha	は
 samune	サムネ	ズーミング
 samune	サムネ
 zu-mingu	ズーミング
 no	の	追加
-no	の
 tsuika	追加	たい
 tsuika	追加
 tai	たい	作り
@@ -55,7 +77,6 @@ oku	おく
 kaite	書いて	に
 kaite	書いて
 ni	に	いい
-ni	に
 ii	いい	ば
 ii	いい
 ba	ば	作れ
@@ -67,8 +88,6 @@ dake	だけ	とき
 dake	だけ
 toki	とき	な
 toki	とき
-na	な	必要
-na	な
 hituyou	必要	いい
 hituyou	必要
 ii	いい	おけば
@@ -272,7 +291,6 @@ dake	だけ	値
 atai	値	な
 atai	値
 hitsuyou	必要	に
-hitsuyou	必要
 ni	に	に
 ni	に	計算機
 keisanki	計算機	は
@@ -391,7 +409,6 @@ mo	も
 itsu	いつ	増井
 itsu	いつ
 masui	増井	元町
-masui	増井
 motomachi	元町	堂
 motomachi	元町
 dou	堂	辻
@@ -560,7 +577,6 @@ oshite	押して	を
 oshite	押して
 wo	を	とか
 toka	とか	できる
-toka	とか
 ga	が	演奏
 ensou	演奏	して
 shite	して	満足
@@ -801,7 +817,6 @@ jitaku	自宅	全部
 zenbu	全部	が
 ga	が	その他
 sonota	その他	授業
-sonota	その他
 jugyou	授業	せいで
 jugyou	授業
 seide	せいで	の
@@ -1110,7 +1125,6 @@ ga	が	必要
 hitsuyou	必要	見る
 miru	見る	を
 wo	を	の
-no	の	は
 ha	は	本当
 hontou	本当	した
 hontou	本当
@@ -3030,7 +3044,6 @@ wo	を	メッセージ
 messe-ji	メッセージ	いろいろ
 messe-ji	メッセージ
 iroiro	いろいろ	アプリ
-iroiro	いろいろ
 suru	する	あり
 ari	あり	必要
 hitsuyou	必要	加える
@@ -3086,7 +3099,6 @@ fairu	ファイル	したい
 shitai	したい	指定
 shitei	指定	ものを
 monowo	ものを	した
-monowo	ものを
 shita	した	おく
 se-bu	セーブ	された
 sareta	された	指定
@@ -3183,7 +3195,6 @@ baaiha	場合は
 jouhou	情報	日付
 hiduke	日付	に
 ni	に	写真
-ni	に	の
 no	の	写真
 shashin	写真	ます
 masu	ます	でき
@@ -6047,7 +6058,6 @@ se-bu	セーブ	は
 ha	は	足す
 wo	を	地図
 chizu	地図	に
-ni	に	ものを
 nai	ない	入って
 de	で	写真
 shashin	写真	の
@@ -6236,8 +6246,6 @@ wo	を	以外
 igai	以外	らしい
 rashii	らしい	こと
 koto	こと	置く
-oku	置く	に
-oku	置く
 foruda	フォルダ	という
 toiu	という	ライブラリ
 raiburari	ライブラリ	データ
@@ -12512,7 +12520,6 @@ fu	不
 kureru	くれる	して
 shite	して	削除
 sakujo	削除	ものを
-monowo	ものを	な
 na	な	ネガティブ
 negathibu	ネガティブ	マシュマロ
 negathibu	ネガティブ
@@ -35795,7 +35802,6 @@ jitsuha	じつは	だが
 jitsuha	じつは
 ni	に	つもり
 tsumori	つもり	した
-tsumori	つもり
 shita	した	解約
 kaiyaku	解約	それで
 sorede	それで	ので
@@ -68112,7 +68118,6 @@ ke	け	人助
 hitodasuk	人助	どうか
 hitodasuk	人助
 douka	どうか	から
-ha	は	つもり
 tumori	つもり	ける
 tumori	つもり
 keru	ける	押し付
@@ -70413,7 +70418,6 @@ nanode	なので	要らない
 tokushu	特殊	ハード
 ha-do	ハード	の
 igai	以外	いろいろ
-iroiro	いろいろ	その他
 sonota	その他	よい
 suru	する	から
 jouhou	情報	内
@@ -132903,7 +132907,6 @@ iroiro	いろいろ	起こして
 okoshite	起こして	なって
 okoshite	起こして
 kara	から	その他
-sonota	その他	とか
 toka	とか	マイクロソフト
 maikurosofuto	マイクロソフト	かね
 nano	なの	なんですが
