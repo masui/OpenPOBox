@@ -1,0 +1,361 @@
+<!-----------------------------
+	漢字コードはEUC
+	$Revision: 1.2 $
+	$Date: 2001/02/12 18:10:50 $
+------------------------------->
+
+<html>
+<head>
+<title>曖昧検索ライブラリ</title>
+</head>
+<body bgcolor=#FFFFDD>
+
+<table bgcolor=darkblue width=100% cellpadding=10 cellspacing=0 border=0>
+<tr>
+<td>
+<font size=6 color=white>
+<CENTER>
+曖昧検索ライブラリ <font size=1>$Date: 2001/02/12 18:10:50 $ 増井俊之@SonyCSL</font>
+</CENTER>
+</font>
+</td>
+</tr>
+</table>
+
+<table cellpadding=3>
+<tr>
+<td><a href="#header">ヘッダ/API定義</td>
+<td><a href="#program">プログラムソース</a></td>
+<td><a href="#example">使用例</a></td>
+</tr>
+</table>
+<hr>
+
+<font color=#000080>曖昧検索ライブラリ</font>は
+高速に曖昧検索(approximate pattern matching)を行なうためのライブラリです。
+曖昧検索とは、
+指定した検索文字列パタンに
+被検索テキストが完全に一致しない場合でもマッチングが成功する検索手法です。
+
+<p>
+本曖昧検索ライブラリでは以下のような曖昧マッチングが有効です。
+
+<ul>
+<li> 文字の置換<br>
+e.g. パタン"masui"がテキスト"matui"にマッチする
+<li> 文字の挿入<br>
+e.g. パタン"masui"がテキスト"matsui"にマッチする
+<li> 文字の削除<br>
+e.g. パタン"masui"がテキスト"matsi"にマッチする
+</ul>
+
+これらは
+<font color=#000080>曖昧度</font>を1として検索を行なった場合ですが、
+曖昧度は0から<code>MAXMISMATCH<code>までの値を使うことができます。
+曖昧度に0を指定すると普通の検索が行なわれます。
+
+<p>
+<a href="../index.html">POBox</a>の検索には本曖昧検索ライブラリが
+使用されています。
+
+
+<p>
+<a name=header>
+<table bgcolor=orange cellpadding=10 cellspacing=0 width=100%>
+<td>
+<font size=4 color=white>
+曖昧検索ライブラリのヘッダとAPI
+</font>
+</td></table>
+<p>
+
+<table width=100%>
+<td bgcolor=#e0e0e0 width=100%>
+<pre file=asearch.h>
+//
+//	$Date: 2001/02/12 18:10:50 $
+//	$Revision: 1.2 $
+//
+#ifndef _ASEARCH_H_
+#define _ASEARCH_H_
+
+#define MAXMISMATCH 3
+
+</pre>
+</td>
+</table>
+
+<!--------------------------------------------------------------------------->
+<table border bgcolor=#ddddff cellpadding=5 cellspacing=0 border=0 width=100%>
+<tr>
+<td colspan=3 bgcolor=darkblue>
+<font color=white>
+検索パタンと曖昧度の指定<br>
+<pre file=asearch.h>
+void asearch_makepat(unsigned char *pattern, int ambig);
+</pre>
+</font>
+</td>
+</tr>
+<tr>
+<td rowspan=2 width=10%>引数</td>
+<td width=20%>pattern</td>
+<td>検索パタン</td>
+</tr>
+<tr>
+<td width=20%>ambig</td>
+<td>検索の曖昧度</td>
+</tr>
+<tr>
+<td>返り値</td>
+<td colspan=2>
+なし
+</td>
+</tr>
+<tr>
+<td>備考</td>
+<td colspan=2>
+検索処理の最初に呼んで曖昧検索のための状態遷移機械を生成する。
+実際の検索は<code>asearch_match()</code>を使用する。
+<br>
+検索パタンには文字クラスを使用可能。(e.g. "k[aiueo]")
+<br>
+検索パタン中の空白文字(0x20)はワイルドカードとなる。
+(0文字以上のあらゆる文字の並びにマッチする。正規表現の"<code>.*</code>"と同様。)
+<br>
+曖昧度<code>ambig</code>の値が0のときは完全マッチングが行なわれ、
+値が1のときは曖昧度1の曖昧マッチングが行なわれる。
+</td>
+</tr>
+</table>
+
+<a name=asearchmatch>
+<!--------------------------------------------------------------------------->
+<table border bgcolor=#ddddff cellpadding=5 cellspacing=0 border=0 width=100%>
+<tr>
+<td colspan=3 bgcolor=darkblue>
+<font color=white>
+曖昧検索の実行<br>
+<pre file=asearch.h>
+int asearch_match(unsigned char *text);
+</pre>
+</font>
+</td>
+</tr>
+<tr>
+<td width=10%>引数</td>
+<td width=20%>text</td>
+<td>検索されるテキスト</td>
+</tr>
+<tr>
+<tr>
+<td>返り値</td>
+<td colspan=2>
+マッチするとき1を返し、マッチしないとき0を返す。
+</td>
+</tr>
+<tr>
+<td>備考</td>
+<td colspan=2>
+曖昧検索が可能になっていると検索時間が増える。
+検索時間は
+<code>asearch_makepat()<code>で指定する<code>ambig</code>の値には依存せず、
+最大曖昧度<code>MAXMISMATCH</code>に依存するので、
+速度が問題になる場合は<code>MAXMISMATCH</code>の値を小さくすること。
+</td>
+</tr>
+</table>
+
+<p>
+<table width=100%>
+<td bgcolor=#e0e0e0 width=100%>
+<pre file=asearch.h>
+#endif
+</pre>
+</td>
+</table>
+
+<a name=program>
+<p>
+<table bgcolor=orange cellpadding=10 cellspacing=0 width=100%>
+<td>
+<font size=4 color=white>
+曖昧検索ライブラリソース
+</font>
+</td></table>
+<p>
+
+<table width=100%>
+<td bgcolor=#e0e0e0 width=100%>
+<pre file=asearch.c>
+//
+//	$Date: 2001/02/12 18:10:50 $
+//	$Revision: 1.2 $
+//
+#include "asearch.h"
+
+#define INITPAT 0x4000
+#define MAXCHAR 0x100
+
+static int mismatch;
+static unsigned int epsilon;
+static unsigned int acceptpat;
+static unsigned int shiftpat[MAXCHAR];
+
+#define isupper(c) ((c) >= 'A' && (c) <= 'Z')
+#define islower(c) ((c) >= 'a' && (c) <= 'z')
+#define toupper(c) ((c) - 'a' + 'A')
+#define tolower(c) ((c) - 'A' + 'a')
+
+void asearch_makepat(unsigned char *pat, int m)
+{
+	int i;
+	unsigned int mask = INITPAT;
+
+	mismatch = m;
+	epsilon = 0;
+
+	for(i=0;i<MAXCHAR;i++) shiftpat[i] = 0;
+	for(;*pat;pat++){
+		if(*pat == ' '){ // ワイルドカード文字
+			epsilon |= mask;
+		}
+		else if (*pat == '\003'){
+			for(pat++;*pat != '\004';pat++){
+				shiftpat[*pat] |= mask;
+				if(isupper(*pat)) shiftpat[tolower(*pat)] |= mask;
+				if(islower(*pat)) shiftpat[toupper(*pat)] |= mask;
+			}
+			mask >>= 1;
+		}
+		else {
+			shiftpat[*pat] |= mask;
+			if(isupper(*pat)) shiftpat[tolower(*pat)] |= mask;
+			if(islower(*pat)) shiftpat[toupper(*pat)] |= mask;
+			mask >>= 1;
+		}
+	}
+	acceptpat = mask;
+}
+
+int asearch_match(register unsigned char *text)
+{
+	register unsigned int i0 = INITPAT;
+#if MAXMISMATCH > 0
+	register unsigned int i1=0;
+#endif
+#if MAXMISMATCH > 1
+	register unsigned int i2=0;
+#endif
+#if MAXMISMATCH > 2
+	register unsigned int i3=0;
+#endif
+	register unsigned int mask;
+	register unsigned int e = epsilon;
+
+	for(;*text;text++){
+		mask = shiftpat[*text];
+#if MAXMISMATCH > 2
+		i3 = (i3 & e) | ((i3 & mask) >> 1) | (i2 >> 1) | i2;
+#endif
+#if MAXMISMATCH > 1
+		i2 = (i2 & e) | ((i2 & mask) >> 1) | (i1 >> 1) | i1;
+#endif
+#if MAXMISMATCH > 0
+		i1 = (i1 & e) | ((i1 & mask) >> 1) | (i0 >> 1) | i0;
+#endif
+		i0 = (i0 & e) | ((i0 & mask) >> 1);
+#if MAXMISMATCH > 0
+		i1 |= (i0 >> 1);
+#endif
+#if MAXMISMATCH > 1
+		i2 |= (i1 >> 1);
+#endif
+#if MAXMISMATCH > 2
+		i3 |= (i2 >> 1);
+#endif
+	}
+	switch(mismatch){
+		case 0: return (i0 & acceptpat);
+		case 1: return (i1 & acceptpat);
+		case 2: return (i2 & acceptpat);
+		case 3: return (i3 & acceptpat);
+		default: return 0;
+	}
+}
+
+</pre>
+</td>
+</table>
+
+<a name=example>
+<p>
+<table bgcolor=orange cellpadding=10 cellspacing=0 width=100%>
+<td>
+<font size=4 color=white>
+曖昧検索ライブラリ使用例
+</font>
+</td></table>
+<p>
+
+曖昧検索ライブラリのテストプログラムです。
+引数で与えられたパタンに近い英単語をリストします。
+パタンの最後尾に" "を付加してから
+<code>asearch_makepat()</code>を呼ぶことにより
+単語の先頭マッチングを行なっています。
+
+<blockquote>
+<pre>
+% asearchtest masui
+massif
+massive
+mastic
+mastiff
+% 
+</pre>
+</blockquote>
+
+<table width=100%>
+<td bgcolor=#e0e0e0 width=100%>
+<pre file=asearchtest.c>
+//
+//	$Date: 2001/02/12 18:10:50 $
+//	$Revision: 1.2 $
+//
+#include <stdio.h>
+#include <string.h>
+#include "asearch.h"
+
+#define DIC "/usr/dict/words"  // 英単語辞書
+#define MAXWORDS 50000
+char *words[MAXWORDS];
+int nwords = 0;
+
+main(int argc, char **argv)
+{
+	FILE *f;
+	char buf[1000];
+	int i;
+	f = fopen(DIC,"r");
+	if(f == NULL) exit(0);
+	while(fgets(buf,1000,f)){
+		words[nwords++] = strdup(buf);
+	}
+
+	if(argc > 1){
+		sprintf(buf,"%s ",argv[1]);
+		asearch_makepat(buf,1);
+		for(i=0;i< nwords;i++){
+			if(asearch_match(words[i])){
+				printf("%s",words[i]);
+			}
+		}
+	}
+}
+
+</pre>
+</td>
+</table>
+
+</body>
+</html>
