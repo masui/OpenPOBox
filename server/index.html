@@ -1,0 +1,169 @@
+<!-----------------------------
+	漢字コードはEUC
+	$Revision: 1.1 $
+	$Date: 2001/08/01 04:34:35 $
+------------------------------->
+
+<html>
+<head>
+<title>POBox Server</title>
+</head>
+<body bgcolor=#ffffdd>
+
+<table cellpadding=3 cellspacing=0 border=0>
+<tr>
+<td></td>
+<td bgcolor=#ccccff><a href="../index.html">概要</a></td>
+<td></td>
+<td bgcolor=#ccccff><a href="../implementations/index.html">実装例</a></td>
+<td></td>
+<td bgcolor=#ccccff><a href="../doc/index.html">技術詳細</a></td>
+<td></td>
+<td bgcolor=#ccccff><a href="../PalmInline/index.html">Palm版</a></td>
+<td></td>
+<td bgcolor=#ccccff><a href="../Emacs/index.html">Emacs版</a></td>
+<td></td>
+<td bgcolor=darkblue><font color=white>POBox Server</font></td>
+<td></td>
+<td bgcolor=#ccccff><a href="../dict/index.html">辞書</a></td>
+<td></td>
+<td bgcolor=#ccccff><a href="../diary.html">日記</a></td>
+<td></td>
+<td bgcolor=#ccccff><a href="http://www.csl.sony.co.jp/person/masui/OpenPOBox/ML/index.html">POBox ML</a></td>
+<td></td>
+<td bgcolor=#ccccff><a href="../info/index.html">関連情報</a></td>
+<td></td>
+</tr>
+</table>
+
+<table bgcolor=darkblue width=100% cellpadding=10 cellspacing=0 border=0>
+<tr>
+<td>
+<font size=6 color=white>
+<CENTER>
+POBoxサーバとライブラリ
+</CENTER>
+</font>
+</td>
+</tr>
+</table>
+
+<table cellpadding=0 cellspacing=0 border=0> <!----ページ全体----->
+<tr>
+<td width=15% valign=top bgcolor=#ffccdd> <!----左カラム(目次)---->
+
+<table width=100% cellpadding=2 cellspacing=0 border=0>
+<tr><td><font color=#ffccdd>■</font></td></tr>
+<tr><td bgcolor=#ffffdd>概要</td></tr>
+<tr><td><a href="install.html">インストール</a></td></tr>
+<tr><td><a href="protocol.html">プロトコル</a></td></tr>
+<tr><td><a href="history.html">更新履歴/旧版DL</a></td></tr>
+
+<tr><td><hr></td></tr>
+
+<tr><td><a href="server.html">汎用サーバライブラリソース</a></td></tr>
+<tr><td><a href="pbserver.html">POBoxサーバソース</a></td></tr>
+<tr><td><a href="poboxlib.html">POBox APIソース</a></td></tr>
+<tr><td><a href="../doc/api.html">POBox API定義</a></td></tr>
+<tr><td><a href="../asearch/asearch.html">曖昧検索ライブラリ</a></td></tr>
+<tr><td><a href="../romakana/index.html">ローマ字かな変換ライブラリ</a></td></tr>
+<tr><td><a href="../wtangle/wtangle.html">「文芸的プログラミング」ツール</a></td></tr>
+</table>
+
+</td> <!----左カラム(目次)---->
+
+<td bgcolor=#ffffdd valign=top> <!----右カラム(本文)---->
+<table cellpadding=5><tr><td>
+
+<table>
+<tr valign=top>
+<td><font color=green>■</font></td>
+<td>
+POBoxサーバは、
+予測入力システム
+「<a href="../index.html">POBox</a>」
+をUnix/WindowsのEmacsやTkなどから使えるようにサーバ化したものです。
+JserverやSKKのような変換システムと同じように、
+ネットワーク上の計算機からアクセスして使うことができます。
+</td>
+</tr>
+
+<tr valign=top>
+<td><font color=green>■</font></td>
+<td>
+POBoxサーバは
+<a href="../doc/api.html">POBox API仕様</a>
+にもとづいて作られた
+<a href="poboxlib.html">UNIX上でのPOBox API実装</a>
+に基づいて作られています。
+また<a href="server.html">汎用サーバライブラリ</a>を使用しています。
+</td>
+</tr>
+
+<tr valign=top>
+<td><font color=green>■</font></td>
+<td>
+POBox Serverは各種のシステムから使えるようにする予定ですが
+今のところクライアントとして使えるのはEmacsだけです。
+EmacsからPOBox Serverを使う方法は
+<a href="../Emacs/index.html">こちら</a>にあります。
+</td>
+</tr>
+
+<td><font color=green>■</font></td>
+<td>
+ソースとドキュメントは
+<a href="../wtangle/wtangle.html">
+Web上の「文芸的プログラミング」</a>にもとづき、
+HTMLファイルで表現されています。
+</td>
+</tr>
+
+<tr valign=top>
+<td><font color=green>■</font></td>
+<td>
+
+注意!
+
+<ul>
+<!----
+<li> バグが多いので注意して下さい。
+---->
+<!---
+<li> サーバとの接続がおかしくなった場合は
+Fundamental modeに戻して再接続してください。
+--->
+<!----
+<li> たまに辞書が壊れることがあります。原因不明...
+<li> Jserverの使い方が根本的にダサいです。
+特に接頭語/接尾語はうまく動きません。
+うまく変換できればラッキーぐらいに思って下さい。
+---->
+<li> システム辞書/ユーザ辞書などの区別はなく、
+単語辞書/例文辞書がそのまま使われます。
+また学習の結果辞書の内容は変化しますので
+複数ユーザで使う場合は注意して下さい。
+<!----
+<li> サーバのポートはSKKと同じ1178を使用しています。
+別のポートを使用する場合は-pオプションを使って下さい。
+---->
+</ul>
+
+</td>
+</tr>
+
+</table>
+
+</td></tr></table>
+</td> <!----右カラム---->
+
+</tr>
+
+</table> <!----ページ全体----->
+
+<font size=1>
+Up$Date: 2001/08/01 04:34:35 $
+</font>
+
+</body>
+</html>

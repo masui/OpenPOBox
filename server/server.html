@@ -1,0 +1,243 @@
+<!-----------------------------
+	漢字コードはEUC
+	$Revision: 1.4 $
+	$Date: 2002/07/06 09:16:59 $
+------------------------------->
+
+<html>
+<head>
+<title>汎用サーバライブラリ</title>
+</head>
+<body bgcolor=#FFFFDD>
+
+<table bgcolor=darkblue width=100% cellpadding=10 cellspacing=0 border=0>
+<tr>
+<td>
+<font size=6 color=white>
+<CENTER>
+汎用サーバライブラリ
+</CENTER>
+</font>
+</td>
+</tr>
+</table>
+<font size=1>$Date: 2002/07/06 09:16:59 $</font>
+<p>
+
+汎用のクライアント/サーバシステムのサーバ部のプログラム。
+
+<a name=header>
+<p>
+<table bgcolor=orange cellpadding=10 cellspacing=0 width=100%>
+<td>
+<font size=4 color=white>
+サーバライブラリのヘッダとAPI
+</font>
+</td></table>
+<p>
+
+<table width=100%>
+<td bgcolor=#e0e0e0 width=100%>
+<pre file=server.h>
+#ifndef _SERVER_H_
+#define _SERVER_H_
+
+
+//#ifdef NO_GETDTABLESIZE
+//#define MAXDTAB		_NFILE
+//#else
+//#define MAXDTAB		getdtablesize()	
+//				/* max number of file descriptors */
+//				/* it returns 64 on SunOS 4.x & NEWS OS 3.3 */
+//				/* it returns 30 on SunOS 3.x & NEWS OS 2.2 */
+//				/* 20 is guaranteed on all machines */
+//#endif
+// Cygwinでこの値が256になってしまったので、小さい値に固定する。
+#define MAXDTAB 32
+
+#define MAXCLIENT	64	/* max number of clients */
+                                /* (must be larger than MAXDTAB-1) */
+#define	BUFSIZE		512	/* max size of a request */
+#define	MAXQUE		5
+
+extern int portnum;
+extern int server_debug;
+
+</pre>
+</td>
+</table>
+
+
+<a name=server>
+<!--------------------------------------------------------------------------->
+<table border bgcolor=#ddddff cellpadding=5 cellspacing=0 border=0 width=100%>
+<tr>
+<td colspan=3 bgcolor=darkblue>
+<font color=white>
+サーバのメインルーチンの呼び出し<br>
+<pre file=server.h>
+typedef int ProcessFunc(int);
+void server(int portnum, ProcessFunc *func);
+</pre>
+</font>
+</td>
+</tr>
+<tr>
+<td rowspan=2 width=10%>引数</td>
+<td width=20%>portnum</td>
+<td>サーバのポート番号</td>
+</tr>
+<tr>
+<td width=20%>func</td>
+<td>サーバから呼び出される関数</td>
+</tr>
+<tr>
+<td>返り値</td>
+<td colspan=2>
+なし
+</td>
+</tr>
+<tr>
+<td>備考</td>
+<td colspan=2>
+-
+</td>
+</tr>
+</table>
+
+<p>
+<table width=100%>
+<td bgcolor=#e0e0e0 width=100%>
+<pre file=server.h>
+#endif
+</pre>
+</td>
+</table>
+
+<a name=program>
+<p>
+<table bgcolor=orange cellpadding=10 cellspacing=0 width=100%>
+<td>
+<font size=4 color=white>
+サーバプログラムソース
+</font>
+</td></table>
+<p>
+
+<table width=100%>
+<td bgcolor=#e0e0e0 width=100%>
+<pre file=server.c>
+#include <stdio.h>
+#if defined(POCKET_SIZE) || defined(PALM_SIZE)
+#include <windows.h>
+#include <winsock.h>
+#define close(x) closesocket(x)
+#else
+#include <ctype.h>
+#include <sys/types.h>
+#include <sys/ioctl.h>
+#include <sys/socket.h>
+#include <netinet/in.h>
+#include <netdb.h>
+#endif
+
+#include "server.h"
+
+int server_debug = 0;
+
+static int initsock;		// 要求待ちsocket
+static int clientfd[MAXCLIENT];	// 各クライアント用socket
+static int nclients = 0;
+
+#if defined(POCKET_SIZE) || defined(PALM_SIZE)
+static void bzero(char *p, int size)
+{
+	while(size-- > 0) *p++ = 0;
+}
+
+static void perror(char *s)
+{
+}
+#endif
+
+static void error(char *s)
+{
+	perror(s);
+	exit(-1);
+}
+
+void server(int portnum, ProcessFunc *func)
+{
+	int i;
+	int len;
+	char value;
+	struct sockaddr_in sin;
+	struct sockaddr_in from;
+	struct servent *sp;
+
+	fd_set readfds, writefds, exceptfds;
+	fd_set getrfds();
+
+	bzero((char*)&sin, sizeof(sin));
+
+	sin.sin_family = AF_INET;
+	//sin.sin_addr.s_addr = htonl(INADDR_ANY);
+	sin.sin_addr.s_addr = INADDR_ANY;
+	sin.sin_port = htons(portnum); 
+
+	if((initsock = socket(PF_INET, SOCK_STREAM, 0)) < 0)
+		error("socket error; socket cannot be created");
+#if defined(POCKET_SIZE) || defined(PALM_SIZE)
+// テリオス用にMips/WinCE2.11でコンパイルすると
+// ここでエラーになって異常終了してしまうので
+// CE版のサーバでは使わないことにする。
+#else
+	value = 1;
+        if (setsockopt(initsock, SOL_SOCKET, SO_REUSEADDR,
+               (char *)(&value), sizeof(int)) < 0)
+                error("setsockopt");
+#endif
+	if(bind(initsock, (struct sockaddr *)&sin, sizeof(sin))< 0) 
+		error("bind error; the socket is already used");
+	if(listen(initsock, MAXQUE) < 0) 
+		error("listen error; something wrong happened with the socket");
+	if(server_debug) printf("file descriptor for initsock is %d\n", initsock);
+
+	FD_ZERO(&writefds);
+	FD_ZERO(&exceptfds);
+	for(;;){
+		FD_ZERO(&readfds);
+		FD_SET(initsock, &readfds);
+		for (i = 0; i < nclients; i ++)
+			FD_SET(clientfd[i], &readfds);
+		if (select(MAXDTAB, &readfds, &writefds, &exceptfds, NULL) < 0)
+			error("select error; something wrong happened with the socket");
+		if(server_debug) printf("select: read file descriptor is %08x\n", readfds);
+		if (FD_ISSET(initsock, &readfds)) {
+			len = sizeof(from);
+			if((clientfd[nclients++] = accept(initsock, &from, &len)) < 0) {
+				error("accept error; something wrong happened with the socket");
+			}
+			if(nclients >= MAXDTAB-3) {
+				send(clientfd[--nclients], "F", 1, 0);
+				close(clientfd[nclients]);
+			}
+		}
+		for (i = 0; i < nclients; i ++){
+			if (FD_ISSET(clientfd[i], &readfds)) {
+				if ((*func)(clientfd[i]) < 0) { 
+			  		/* -1 means client closed the connection */
+					close(clientfd[i]);
+					clientfd[i] = clientfd[nclients-1];
+					nclients--;
+				}
+			}
+		}
+	}
+}
+</pre>
+</td>
+</table>
+
+</body>
+</html>

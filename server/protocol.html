@@ -1,0 +1,118 @@
+<!-----------------------------
+	漢字コードはEUC
+	$Revision: 1.1 $
+	$Date: 2001/07/23 15:02:15 $
+------------------------------->
+
+<html>
+<head>
+<title>POBox Server Protocol</title>
+</head>
+<body bgcolor=#FFFFDD>
+
+<table cellpadding=3 cellspacing=0 border=0>
+<tr>
+<td></td>
+<td bgcolor=#ccccff><a href="../index.html">概要</a></td>
+<td></td>
+<td bgcolor=#ccccff><a href="../implementations/index.html">実装例</a></td>
+<td></td>
+<td bgcolor=#ccccff><a href="../doc/index.html">技術詳細</a></td>
+<td></td>
+<td bgcolor=#ccccff><a href="../PalmInline/index.html">Palm版</a></td>
+<td></td>
+<td bgcolor=#ccccff><a href="../Emacs/index.html">Emacs版</a></td>
+<td></td>
+<td bgcolor=darkblue><font color=white>POBox Server</font></td>
+<td></td>
+<td bgcolor=#ccccff><a href="../dict/index.html">辞書</a></td>
+<td></td>
+<td bgcolor=#ccccff><a href="../diary.html">日記</a></td>
+<td></td>
+<td bgcolor=#ccccff><a href="http://www.csl.sony.co.jp/person/masui/OpenPOBox/ML/index.html">POBox ML</a></td>
+<td></td>
+<td bgcolor=#ccccff><a href="../info/index.html">関連情報</a></td>
+<td></td>
+</tr>
+</table>
+
+
+<table bgcolor=darkblue width=100% cellpadding=10 cellspacing=0 border=0>
+<tr>
+<td>
+<font size=6 color=white>
+<CENTER>
+POBoxサーバ
+<font size=4 color=white>
+- プロトコル
+</font>
+</CENTER>
+</font>
+</td>
+</tr>
+</table>
+
+<table cellpadding=0 cellspacing=0 border=0> <!----ページ全体----->
+<tr>
+<td width=15% valign=top bgcolor=#ffccdd> <!----左カラム(目次)---->
+
+<table width=100% cellpadding=2 cellspacing=0 border=0>
+<tr><td><font color=#ffccdd>■</font></td></tr>
+<tr><td><a href="index.html">概要</a></td></tr>
+<tr><td><a href="install.html">インストール</a></td></tr>
+<tr><td bgcolor=#ffffdd>プロトコル</td></tr>
+<tr><td><a href="history.html">更新履歴/旧版DL</a></td></tr>
+<tr><td><hr></td></tr>
+<tr><td><a href="server.html">汎用サーバライブラリソース</a></td></tr>
+<tr><td><a href="pbserver.html">POBoxサーバソース</a></td></tr>
+<tr><td><a href="poboxlib.html">POBox APIソース</a></td></tr>
+<tr><td><a href="../doc/api.html">POBox API定義</a></td></tr>
+<tr><td><a href="../asearch/asearch.html">曖昧検索ライブラリ</a></td></tr>
+<tr><td><a href="../romakana/index.html">ローマ字かな変換ライブラリ</a></td></tr>
+<tr><td><a href="../wtangle/wtangle.html">「文芸的プログラミング」ツール</a></td></tr>
+</table>
+
+</td> <!----左カラム(目次)---->
+
+<td bgcolor=#ffffdd> <!----右カラム(本文)---->
+<table cellpadding=5><tr><td>
+
+とりあえずSKKサーバのプロトコルを拡張したものを使うことにしています。
+("4"以上は増井が追加したものです)
+
+<blockquote>
+<table border bgcolor=#ccccff>
+<tr><th>種別</th>			<th>リクエスト</th>		<th>返事</th></tr>
+<tr><td>切断</td>			<td>"0"</td>			<td>なし</td></tr>
+<tr><td>検索</td>			<td>"1&lt;検索文字列&gt;"</td>	<td>"0\n" (エラー)<br>
+"1/候補1/候補2/../\n" (検索結果あり) <br>
+"4\n" (検索結果なし)
+</td>
+</tr>
+<tr><td>バージョン番号</td>		<td>"2"</td>				<td>"&lt;major&gt;.&lt;minor&gt; "</td></tr>
+<tr><td>ホスト名</td>			<td>"3"</td>				<td>"&lt;ホスト&gt;:&lt;IP番号&gt; "</td></tr>
+<tr><td>コンテクスト通知</td>		<td>"4&lt;コンテクスト&gt;"</td>	<td>"1"</td></tr>
+<tr><td>単語登録</td>			<td>"5&lt;単語&gt;\t&lt;パタン&gt;"</td><td>"1"</td></tr>
+<tr><td>単語削除</td>			<td>"6&lt;削除単語&gt;"</td>		<td>"1"</td></tr>
+<tr><td>辞書セーブ</td>			<td>"7"</td>				<td>"1"</td></tr>
+<tr><td>n番目の候補選択通知</td>	<td>"8&lt;n&gt;"</td>			<td>"1"</td></tr>
+
+</table>
+</blockquote>
+
+skkservは何故か"2","3"のリクエストに対しては文字列の最後に"\n"を
+返さないようになっていますが、そのままにしてあります。
+
+</td></tr></table>
+</td> <!----右カラム終わり---->
+
+</tr>
+
+</table> <!----ページ全体終わり----->
+
+<font size=1>
+Up$Date: 2001/07/23 15:02:15 $
+</font>
+
+</body>
+</html>

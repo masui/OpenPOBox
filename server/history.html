@@ -1,0 +1,145 @@
+<!-----------------------------
+	漢字コードはEUC
+	$Revision: 1.3 $
+	$Date: 2002/02/16 08:20:44 $
+------------------------------->
+
+<html>
+<head>
+<title>POBox Server</title>
+</head>
+<body bgcolor=#FFFFDD>
+
+<table cellpadding=3 cellspacing=0 border=0>
+<tr>
+<td></td>
+<td bgcolor=#ccccff><a href="../index.html">概要</a></td>
+<td></td>
+<td bgcolor=#ccccff><a href="../implementations/index.html">実装例</a></td>
+<td></td>
+<td bgcolor=#ccccff><a href="../doc/index.html">技術詳細</a></td>
+<td></td>
+<td bgcolor=#ccccff><a href="../PalmInline/index.html">Palm版</a></td>
+<td></td>
+<td bgcolor=#ccccff><a href="../Emacs/index.html">Emacs版</a></td>
+<td></td>
+<td bgcolor=darkblue><font color=white>POBox Server</font></td>
+<td></td>
+<td bgcolor=#ccccff><a href="../dict/index.html">辞書</a></td>
+<td></td>
+<td bgcolor=#ccccff><a href="../diary.html">日記</a></td>
+<td></td>
+<td bgcolor=#ccccff><a href="http://www.csl.sony.co.jp/person/masui/OpenPOBox/ML/index.html">POBox ML</a></td>
+<td></td>
+<td bgcolor=#ccccff><a href="../info/index.html">関連情報</a></td>
+<td></td>
+</tr>
+</table>
+
+
+<table bgcolor=darkblue width=100% cellpadding=10 cellspacing=0 border=0>
+<tr>
+<td>
+<font size=6 color=white>
+<CENTER>
+POBoxサーバ
+<font size=4 color=white>
+- 更新履歴
+</font>
+</CENTER>
+</font>
+</td>
+</tr>
+</table>
+
+<table cellpadding=0 cellspacing=0 border=0> <!----ページ全体----->
+<tr>
+<td width=15% valign=top bgcolor=#ffccdd> <!----左カラム(目次)---->
+
+<table width=100% cellpadding=2 cellspacing=0 border=0>
+<tr><td><font color=#ffccdd>■</font></td></tr>
+<tr><td><a href="index.html">概要</a></td></tr>
+<tr><td><a href="install.html">インストール</a></td></tr>
+<tr><td><a href="protocol.html">プロトコル</a></td></tr>
+<tr><td bgcolor=#ffffdd>更新履歴/旧版DL</td></tr>
+<tr><td><hr></td></tr>
+<tr><td><a href="server.html">汎用サーバライブラリソース</a></td></tr>
+<tr><td><a href="pbserver.html">POBoxサーバソース</a></td></tr>
+<tr><td><a href="poboxlib.html">POBox APIソース</a></td></tr>
+<tr><td><a href="../doc/api.html">POBox API定義</a></td></tr>
+<tr><td><a href="../asearch/asearch.html">曖昧検索ライブラリ</a></td></tr>
+<tr><td><a href="../romakana/index.html">ローマ字かな変換ライブラリ</a></td></tr>
+<tr><td><a href="../wtangle/wtangle.html">「文芸的プログラミング」ツール</a></td></tr>
+</table>
+
+</td> <!----左カラム(目次)---->
+
+<td bgcolor=#ffffdd valign=top> <!----右カラム(本文)---->
+<table cellpadding=5><tr><td>
+
+<ul>
+<li> TODO
+	<ul>
+	<li> スペースを含む単語が登録できない
+	</ul>
+<li> 2002/2/16 <a href="../dist/pobox-1.2.6.tgz">pobox-1.2.6.tgz</a>
+	<ul>
+	<li> Cygwinでサーバが動かなくなってしまったのを修正
+	</ul>
+<li> 2001/2/11 <a href="../dist/pobox-1.2.4.tgz">pobox-1.2.4.tgz</a>
+	<ul>
+	<li> lookupで単漢字変換がうまく動かないのを修正
+	<li> Cygwinでlookupがうまく動かないのを修正
+	</ul>
+<li> 2001/2/10
+	<ul>
+	<li> トライによる固定辞書検索ができるようにした。configure
+	--enable-lookup で設定。
+	超非力なマシンではSaryよりこちらの方が良いかも。
+	<li> pobox_getcands()で、strcpy()せずにポインタ列を返すようにした
+	</ul>
+<li> 2001/2/4 <a href="../dist/pobox-1.2.1.tgz">pobox-1.2.1.tgz</a>
+	<ul>
+	<li> 文書追加
+	</ul>
+<li> 2001/1/31 <a href="../dist/pobox-1.2.tgz">pobox-1.2.tgz</a>
+	<ul>
+	<li> Sary, Boehm GCなどを使った新しい版
+	<li> いくつかバグも取っている
+	</ul>
+<li> 2000/7/27 <a href="../dist/pobox-1.1.tgz">pobox-1.1.tgz</a>
+	<ul>
+	<li> <a href="server/pbserver.html">POBox Server</a><br>
+	<code>-p</code>オプションが動くように修正
+	<li> <a href="Emacs/index.html">Emacs版POBox</a><br>
+	毎回サーバに接続しないようにした
+	</ul>
+<li> 2000/7/14 <a href="pobox-1.0.tgz">pobox-1.0.tgz</a>
+	<ul>
+	<li> <a href="server/pbserver.html">POBox Server</a><br>
+	強い曖昧検索を有効にする。
+	&#147;<code>tkdg</code>&#148;から&#147;東京大学&#148;が検索可能。
+	<li> <a href="Emacs/index.html">Emacs版POBox</a><br>
+	ローマ字からのインクリメンタル検索が可能になった
+	</ul>
+<li> 2000/7/13 XEmacs対応
+<li> POBox APIを使うように変更 (2000/4/27)
+<li> ライブラリ変更 (2000/04/26)
+<li> 解説文章作成 (2000/03/02 15:49:47)
+<li> プロトコル追加 (1999年吉月吉日)
+<li> HTML(htangle)版文書作成 (1999/08/29 22:37:54)
+</ul>
+
+</td></tr></table>
+</td> <!----右カラム終わり---->
+
+</tr>
+
+</table> <!----ページ全体終わり----->
+
+<font size=1>
+Up$Date: 2002/02/16 08:20:44 $
+</font>
+
+</body>
+</html>

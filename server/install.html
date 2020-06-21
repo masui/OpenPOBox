@@ -1,0 +1,263 @@
+<!-----------------------------
+	漢字コードはEUC
+	$Revision: 1.2 $
+	$Date: 2001/02/10 11:08:54 $
+------------------------------->
+
+<html>
+<head>
+<title>POBox Server - インストール</title>
+</head>
+<body bgcolor=#FFFFDD>
+
+<table cellpadding=3 cellspacing=0 border=0>
+<tr>
+<td></td>
+<td bgcolor=#ccccff><a href="../index.html">概要</a></td>
+<td></td>
+<td bgcolor=#ccccff><a href="../implementations/index.html">実装例</a></td>
+<td></td>
+<td bgcolor=#ccccff><a href="../doc/index.html">技術詳細</a></td>
+<td></td>
+<td bgcolor=#ccccff><a href="../PalmInline/index.html">Palm版</a></td>
+<td></td>
+<td bgcolor=#ccccff><a href="../Emacs/index.html">Emacs版</a></td>
+<td></td>
+<td bgcolor=darkblue><font color=white>POBox Server</font></td>
+<td></td>
+<td bgcolor=#ccccff><a href="../dict/index.html">辞書</a></td>
+<td></td>
+<td bgcolor=#ccccff><a href="../diary.html">日記</a></td>
+<td></td>
+<td bgcolor=#ccccff><a href="http://www.csl.sony.co.jp/person/masui/OpenPOBox/ML/index.html">POBox ML</a></td>
+<td></td>
+<td bgcolor=#ccccff><a href="../info/index.html">関連情報</a></td>
+<td></td>
+</tr>
+</table>
+
+<table bgcolor=darkblue width=100% cellpadding=10 cellspacing=0 border=0>
+<tr>
+<td>
+<font size=6 color=white>
+<CENTER>
+POBoxサーバ
+<font size=4 color=white>
+- インストール
+</font>
+</CENTER>
+</font>
+</td>
+</tr>
+</table>
+
+<table cellpadding=0 cellspacing=0 border=0> <!----ページ全体----->
+<tr>
+<td width=15% valign=top bgcolor=#ffccdd> <!----左カラム(目次)---->
+
+<table width=100% cellpadding=2 cellspacing=0 border=0>
+<tr><td><font color=#ffccdd>■</font></td></tr>
+<tr><td><a href="index.html">概要</a></td></tr>
+<tr><td bgcolor=#ffffdd>インストール</td></tr>
+<tr><td><a href="protocol.html">プロトコル</a></td></tr>
+<tr><td><a href="history.html">更新履歴/旧版DL</a></td></tr>
+<tr><td><hr></td></tr>
+<tr><td><a href="server.html">汎用サーバライブラリソース</a></td></tr>
+<tr><td><a href="pbserver.html">POBoxサーバソース</a></td></tr>
+<tr><td><a href="poboxlib.html">POBox APIソース</a></td></tr>
+<tr><td><a href="../doc/api.html">POBox API定義</a></td></tr>
+<tr><td><a href="../asearch/asearch.html">曖昧検索ライブラリ</a></td></tr>
+<tr><td><a href="../romakana/index.html">ローマ字かな変換ライブラリ</a></td></tr>
+<tr><td><a href="../wtangle/wtangle.html">「文芸的プログラミング」ツール</a></td></tr>
+</table>
+
+</td> <!----左カラム(目次)---->
+
+<td bgcolor=#ffffdd valign=top><table cellpadding=5><tr><td><!--右カラム(本文)---->
+
+<table><!--------------------------------------------------▽▽▽▽▽▽▽▽------->
+
+<tr valign=top><td><font color=green>■</font></td><td><!------▼項目▼----------->
+POBox ServerとEmacs用プログラムの
+全ソースとHTML文書は<a href="../dist/pobox.tgz">pobox.tgz</a>に
+まとめられているので、これを解凍して
+<code>configure</code>, <code>make</code> して下さい。
+</td></tr><!---------------------------------------------------▲項目▲----------->
+
+<tr valign=top><td><font color=green>■</font></td><td><!------▼項目 ▼----------->
+プログラムの他に辞書が必要です。
+おすすめできる辞書がまだ無いので辞書は別配布です。
+とりあえず
+<a href="../dict/data/fugodic">富豪辞書</a>を使ってみることができますが、
+<a href="../dict/index.html">辞書解説</a>を見て
+自作していただく方が良いかもしれません。
+<br>
+<a href="../dict/tools">変換ツール</a>を使用して
+手持ちの辞書を変換して使うこともできます。
+</td></tr><!---------------------------------------------------▲項目▲----------->
+
+<tr valign=top><td><font color=green>■</font></td><td><!------▼項目▼----------->
+<a href="../wtangle/wtangle.html">Web上の「文芸的プログラミング」</a>
+にもとづき、
+HTMLファイルで文書とプログラムを両方表現しています。
+<br>
+<a href="pbserver.html">サーバソース解説</a>、
+<a href="poboxlib.html">APIソース解説</a>
+のような、ソースを含むHTMLファイルに対して
+<a href="../wtangle/wtangle">wtangle</a>プログラムを適用すると
+<a href="pbserver.c">pbserver.c</a>などのファイルを
+生成することができるようになっています。
+<br>
+この処理はmakeにより自動的に実行されます。
+</td></tr><!---------------------------------------------------▲項目▲----------->
+
+<tr valign=top><td><font color=green>■</font></td><td><!------▼項目▼----------->
+<code>configure</code>で
+&#147;<code>--enable-gc</code>&#148;
+オプションを指定すると
+POBox Serverで
+<a href="http://www.hpl.hp.com/personal/Hans_Boehm/gc/index.html">
+Boehm GC</a>が使用されます。
+<br>
+指定しなくても問題はありません。
+</td></tr><!---------------------------------------------------▲項目▲----------->
+
+<tr valign=top><td><font color=green>■</font></td><td><!------▼項目▼----------->
+<code>configure</code>で
+&#147;<code>--enable-sary</code>&#148;
+オプションを指定すると
+Suffix Array操作ライブラリ
+<a href="http://sary.namazu.org/index.html.ja">Sary</a>
+が使用されます。
+<br>
+Saryを使用すると固定辞書を使うことができるようになります。
+POBox Serverは、ユーザが単語を選択するごとにその単語を
+辞書の先頭に持ってくる学習操作を行なうので、
+大きな辞書を学習辞書に使うと速度が問題になることがあります。
+
+小さな学習辞書(最初は空でもよい)と
+巨大な固定辞書から使用を開始すると
+POBox Serverを快適に使うことができます。
+<br>
+小さな辞書でかまわない場合や
+計算機が強力な場合は
+固定辞書を使うメリットはあまりありません。
+</td></tr><!---------------------------------------------------▲項目▲----------->
+
+<tr valign=top><td><font color=green>■</font></td><td><!------▼項目▼----------->
+<code>configure</code>で
+&#147;<code>--enable-lookup</code>&#148;
+オプションを指定すると、
+トライを使った固定辞書検索方式が使用されます。
+超非力なマシンではSaryよりこちらの方が良いかもしれません。
+</td></tr><!---------------------------------------------------▲項目▲----------->
+
+<tr valign=top><td><font color=green>■</font></td><td><!------▼項目▼----------->
+Boehm GC, Saryを使う場合はあらかじめインストールが必要です。
+(configureではちゃんとチェックしてません)
+</td></tr><!---------------------------------------------------▲項目▲----------->
+
+<tr valign=top><td><font color=green>■</font></td><td><!------▼項目▼----------->
+学習辞書と固定辞書は今のところ
+<a href="pbserver.html#dictionaries">
+<code>learndic</code>, <code>staticdic</code>
+という名前のものが使われるようになっています</a>。
+(もう少し柔軟にしたいと思います...)
+
+<br>
+Saryを使う場合は
+<ul>
+<li> <a href="../dict/data/fugodic">富豪辞書</a>をEUCに変換して
+staticdicという名前にする
+<br>
+<font color=darkblue>
+<code>% nkf -e < ../dict/data/fugodic > staticdic</code>
+</font>
+<li> &#147;<code>mksary -l</code>&#148; により、
+インデクスファイル <code>staticdic.sry</code>を生成する
+<br>
+<font color=darkblue>
+<code>% mksary -l staticdic</code>
+</font>
+<li> 空の<code>learndic</code>を用意する
+<br>
+<font color=darkblue>
+<code>% touch learndic</code>
+</font>
+</ul>
+
+とすればよいでしょう。
+
+また、Saryを使わない場合は
+<ul>
+<li> <a href="../dict/data/fugodic">富豪辞書</a>をEUCに変換して
+learndicという名前にする
+<br>
+<font color=darkblue>
+<code>% nkf -e < ../dict/data/fugodic > learndic</code>
+</font>
+</ul>
+
+として下さい。
+
+<br>
+トライ検索を行なう場合は、
+
+<ul>
+<li> EUCに変換した<a href="../dict/data/fugodic">富豪辞書</a>をソートして
+<code>staticdic</code>を作成
+<br>
+<font color=darkblue>
+<code>% nkf -e < ../dict/data/fugodic | sort > staticdic</code>
+<li>
+空の<code>learndic</code>を用意する
+<br>
+<code>% touch learndic</code>
+</font>
+</ul>
+
+として下さい。
+</td></tr><!---------------------------------------------------▲項目▲----------->
+
+<tr valign=top><td><font color=green>■</font></td><td><!------▼項目▼----------->
+<code>pbserver</code>と辞書は同じディレクトリに置かなければ
+なりません。
+ダサくてすみません。
+</td></tr><!---------------------------------------------------▲項目▲----------->
+
+<tr valign=top><td><font color=green>■</font></td><td><!------▼項目▼----------->
+以下のようなテストで
+<code>pbserver</code>が動いているかどうかわかります。
+青い文字がユーザの入力です。
+
+<blockquote>
+<pre>
+% <font color=blue>telnet localhost 1178</font>
+Trying 127.0.0.1...
+Connected to localhost.
+Escape character is '^]'.
+<font color=blue>1kai</font>
+1       かい    カイ    kai     買い    会
+<font color=blue>q</font>
+Connection closed by foreign host.
+%
+</pre>
+</blockquote>
+
+
+</td></tr><!---------------------------------------------------▲項目▲----------->
+
+</table><!-------------------------------------------------△△△△△△△△------->
+
+</td></tr></table></td> <!----------------------------------右カラム終わり-------->
+
+</tr>
+
+</table> <!----ページ全体終わり----->
+
+<font size=1>
+Up$Date: 2001/02/10 11:08:54 $
+</font>
+
+</body>
+</html>
